@@ -1,5 +1,5 @@
 {
-	"name": "react-express-ts-template",
+	"name": "authentication-demo",
 	"private": "true",
 	"workspaces": [
 		"packages/*"
@@ -18,8 +18,8 @@
 		}
 	},
 	"scripts": {
-		"client": "yarn workspace @react-express-ts-template/client",
-		"server": "yarn workspace @react-express-ts-template/server",
+		"client": "yarn workspace @authentication-demo/client",
+		"server": "yarn workspace @authentication-demo/server",
 		"build": "concurrently \"yarn server build\" \"yarn client build\" --names \"server,client\"",
 		"start": "concurrently \"yarn server start\" \"yarn client serve\" --names \"server,client\"",
 		"start-watch": "concurrently \"yarn server start-watch\" \"yarn client start\" -i --names \"server,client\"",
