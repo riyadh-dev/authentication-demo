@@ -1,21 +1,17 @@
-import csurf from 'csurf';
 import { Router } from 'express';
-import { validateInput } from '../common/middlewares';
-import { createUser, login } from './controllers';
+import {
+	authenticate,
+	csrfLogin,
+	csrfProtection,
+	validateInput,
+} from '../common/middlewares';
+import { createUser, login, protectedSource } from './controllers';
 import { validationSchema } from './validation';
 
 const router = Router();
 
-const LoginCsurf = csurf({
-	ignoreMethods: ['POST'],
-	cookie: {
-		httpOnly: true,
-		signed: true,
-		secure: true,
-	},
-});
-
 router.post('/create', validateInput(validationSchema), createUser);
-router.post('/login', LoginCsurf, validateInput(validationSchema), login);
+router.post('/login', csrfLogin, validateInput(validationSchema), login);
+router.post('/protected', csrfProtection, authenticate, protectedSource);
 
 export default router;
