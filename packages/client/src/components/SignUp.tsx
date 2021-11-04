@@ -1,7 +1,6 @@
 import { CheckCircleIcon } from '@chakra-ui/icons';
 import {
 	Button,
-	Flex,
 	FormControl,
 	FormErrorMessage,
 	FormLabel,
