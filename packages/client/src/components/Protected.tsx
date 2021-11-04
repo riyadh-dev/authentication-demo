@@ -1,5 +1,5 @@
 import { CheckCircleIcon, WarningIcon } from '@chakra-ui/icons';
-import { Button, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import { Button, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import React from 'react';
 import { useQuery } from 'react-query';
@@ -38,7 +38,19 @@ const Login = () => {
 
 	const errMsg = error?.response ? error?.response?.data.error : error?.message;
 	return (
-		<Stack spacing={6} w='full' maxW='md' bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
+		<Flex
+			align='center'
+			justify='space-between'
+			alignItems='stretch'
+			direction='column'
+			w='full'
+			h='19.5em'
+			bg={formBg}
+			rounded='xl'
+			boxShadow='lg'
+			p={6}
+			my={12}
+		>
 			<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: 'xl', md: '2xl' }}>
 				Protected
 			</Heading>
@@ -51,7 +63,7 @@ const Login = () => {
 			<Button isLoading={isLoading} colorScheme='green' onClick={onClick}>
 				Request
 			</Button>
-		</Stack>
+		</Flex>
 	);
 };
 

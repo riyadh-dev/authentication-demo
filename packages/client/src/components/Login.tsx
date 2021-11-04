@@ -1,6 +1,7 @@
 import { CheckCircleIcon } from '@chakra-ui/icons';
 import {
 	Button,
+	Flex,
 	FormControl,
 	FormErrorMessage,
 	FormLabel,
@@ -65,7 +66,18 @@ const Login = () => {
 	if (isSuccess && data) {
 		localStorage.setItem('csrfToken', data.csrfToken);
 		return (
-			<Stack w='full' spacing={10} maxW='md' bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
+			<Flex
+				align='center'
+				justify='space-between'
+				direction='column'
+				w='full'
+				h='19.5em'
+				bg={formBg}
+				rounded='xl'
+				boxShadow='lg'
+				p={6}
+				my={12}
+			>
 				<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: 'xl', md: '2xl' }}>
 					Login Successful
 				</Heading>
@@ -73,7 +85,7 @@ const Login = () => {
 				<Button colorScheme='green' onClick={() => reset()}>
 					Logout
 				</Button>
-			</Stack>
+			</Flex>
 		);
 	}
 
@@ -88,7 +100,7 @@ const Login = () => {
 	};
 
 	return (
-		<Stack spacing={4} w='full' maxW='md' bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
+		<Stack spacing={4} w='full' bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
 			<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
 				Login
 			</Heading>
