@@ -1,14 +1,16 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import SignUp from './components/SignUp';
+import Main from './components/Main';
 
 function App() {
-	const queryClient = new QueryClient();
+	const queryClient = new QueryClient({
+		defaultOptions: { mutations: { retry: 0 }, queries: { retry: 0 } },
+	});
 	return (
 		<ChakraProvider>
-			<QueryClientProvider client={queryClient} >
-				<SignUp/>
+			<QueryClientProvider client={queryClient}>
+				<Main />
 			</QueryClientProvider>
 		</ChakraProvider>
 	);
