@@ -1,7 +1,11 @@
 import bcrypt from 'bcryptjs';
-import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { IErrorHandler, isErrorWithCode } from '../common/interfaces';
+import {
+	IAsyncMiddleware,
+	IErrorHandler,
+	IMiddleware,
+	isErrorWithCode,
+} from '../common/interfaces';
 import { catchAsyncMiddlewareError } from '../common/middlewares';
 import { IUser } from './interfaces';
 import { userModel } from './model';
@@ -22,16 +26,19 @@ const createUserErrorHandler: IErrorHandler = (error, res) => {
 	});
 };
 
-const createUserUnsafe = async (req: Request, res: Response) => {
+const createUserUnsafe: IAsyncMiddleware = async (req, res) => {
 	await userModel.create(res.locals.validatedBody);
 	res.status(200).json({
 		success: 'user created successfully',
 	});
 };
 
-export const createUser = catchAsyncMiddlewareError(createUserUnsafe, createUserErrorHandler);
+export const createUser = catchAsyncMiddlewareError(
+	createUserUnsafe,
+	createUserErrorHandler
+);
 
-const loginUnsafe = async (req: Request, res: Response) => {
+const loginUnsafe: IAsyncMiddleware = async (req, res) => {
 	const bodyUser: IUser = res.locals.validatedBody;
 	const userDoc = await userModel.findOne({ username: bodyUser.username });
 	if (!userDoc) {
@@ -50,7 +57,7 @@ const loginUnsafe = async (req: Request, res: Response) => {
 	res.cookie('token', jwtToken, {
 		httpOnly: true,
 		signed: true,
-		secure: true,
+		//secure: true,
 	});
 
 	const csrfToken = req.csrfToken();
@@ -61,3 +68,7 @@ const loginUnsafe = async (req: Request, res: Response) => {
 };
 
 export const login = catchAsyncMiddlewareError(loginUnsafe);
+
+export const protectedSource: IMiddleware = (req, res) => {
+	res.status(200).json({ success: 'request to protected route succeeded' });
+};

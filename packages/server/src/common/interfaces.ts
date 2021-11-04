@@ -12,5 +12,9 @@ export interface IErrorHandler {
 }
 
 export interface IAsyncMiddleware {
-	(req: Request, res: Response, next: NextFunction): Promise<unknown>
+	(req: Request, res: Response, next: NextFunction): Promise<unknown>;
+}
+
+export interface IMiddleware {
+	(req: Request, res: Response, next: NextFunction): unknown;
 }
