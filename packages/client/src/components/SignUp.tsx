@@ -1,6 +1,7 @@
 import { CheckCircleIcon } from '@chakra-ui/icons';
 import {
 	Button,
+	Flex,
 	FormControl,
 	FormErrorMessage,
 	FormLabel,
@@ -53,7 +54,19 @@ const SignUp = () => {
 
 	if (isSuccess)
 		return (
-			<Stack spacing={10} maxW='md' bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
+			<Flex
+				align='center'
+				justify='space-between'
+				alignItems='stretch'
+				direction='column'
+				w='full'
+				h='19.5em'
+				bg={formBg}
+				rounded='xl'
+				boxShadow='lg'
+				p={6}
+				my={12}
+			>
 				<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: 'xl', md: '2xl' }}>
 					Sign Up Successful
 				</Heading>
@@ -61,7 +74,7 @@ const SignUp = () => {
 				<Button colorScheme='green' onClick={() => reset()}>
 					Create Another User
 				</Button>
-			</Stack>
+			</Flex>
 		);
 
 	const usernameValidationRules = {
@@ -75,7 +88,7 @@ const SignUp = () => {
 	};
 
 	return (
-		<Stack spacing={4} w='full' maxW='md' bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
+		<Stack w='full' spacing={4} bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
 			<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
 				Sign Up
 			</Heading>
