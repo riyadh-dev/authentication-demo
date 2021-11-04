@@ -60,7 +60,6 @@ export const csrfProtection = csurf({
 export const authenticate: IMiddleware = (req, res, next) => {
 	try {
 		res.locals.currentUser = jwt.verify(req.signedCookies.token, 'secret');
-		res.clearCookie('token');
 		next();
 	} catch (_error) {
 		res.clearCookie('token');
