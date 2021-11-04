@@ -9,7 +9,7 @@ import {
 	Stack,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError } from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -19,12 +19,20 @@ interface IFormValues {
 	password: string;
 }
 
-const addUserReq = async (user: IFormValues) => {
-	const { data } = await axios.post('http://localhost:4000/user/create', user);
+interface ILoginRes {
+	_id: string;
+	username: string;
+	csrfToken: string;
+}
+
+const loginReq = async (user: IFormValues) => {
+	const { data } = await axios.post('http://localhost:4000/user/login', user, {
+		withCredentials: true,
+	});
 	return data;
 };
 
-const SignUp = () => {
+const Login = () => {
 	const {
 		register,
 		handleSubmit,
@@ -34,14 +42,17 @@ const SignUp = () => {
 
 	const onError = (err: AxiosError) => {
 		const errMsg = err?.response?.data.error;
-		if (errMsg === 'username already used') setError('username', { message: errMsg });
+		if (errMsg === 'wrong password or username') {
+			setError('username', { message: errMsg });
+			setError('password', { message: errMsg });
+		}
 	};
 
-	const { mutate, isLoading, isSuccess, reset } = useMutation<
-		AxiosResponse,
+	const { data, mutate, isLoading, isSuccess, reset } = useMutation<
+		ILoginRes,
 		AxiosError,
 		IFormValues
-	>(addUserReq, {
+	>(loginReq, {
 		onError,
 	});
 
@@ -51,18 +62,20 @@ const SignUp = () => {
 
 	const formBg = useColorModeValue('white', 'gray.700');
 
-	if (isSuccess)
+	if (isSuccess && data) {
+		localStorage.setItem('csrfToken', data.csrfToken);
 		return (
-			<Stack spacing={10} maxW='md' bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
+			<Stack w='full' spacing={10} maxW='md' bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
 				<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: 'xl', md: '2xl' }}>
-					Sign Up Successful
+					Login Successful
 				</Heading>
 				<CheckCircleIcon color='green.400' alignSelf='center' boxSize={20} />
 				<Button colorScheme='green' onClick={() => reset()}>
-					Create Another User
+					Logout
 				</Button>
 			</Stack>
 		);
+	}
 
 	const usernameValidationRules = {
 		minLength: { value: 4, message: 'username too short' },
@@ -77,7 +90,7 @@ const SignUp = () => {
 	return (
 		<Stack spacing={4} w='full' maxW='md' bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
 			<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
-				Sign Up
+				Login
 			</Heading>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Stack spacing={4}>
@@ -110,4 +123,4 @@ const SignUp = () => {
 	);
 };
 
-export default SignUp;
+export default Login;
