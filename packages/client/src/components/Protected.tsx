@@ -73,7 +73,7 @@ const Login = () => {
 				<CheckCircleIcon color='green.400' alignSelf='center' boxSize={20} />
 			)}
 			{!isError && !isSuccess && (
-				<WarningTwoIcon color='yellow.300' alignSelf='center' boxSize={20} />
+				<WarningTwoIcon color='yellow.400' alignSelf='center' boxSize={20} />
 			)}
 			{(isError || isSuccess) && (
 				<Text

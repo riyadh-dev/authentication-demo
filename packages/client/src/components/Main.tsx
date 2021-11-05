@@ -1,11 +1,7 @@
-import {
-	Flex,
-	Heading,
-	useColorModeValue,
-	Wrap,
-	WrapItem,
-} from '@chakra-ui/react';
+import { Flex, useColorModeValue, Wrap, WrapItem } from '@chakra-ui/react';
+import axios from 'axios';
 import React, { createContext, useState } from 'react';
+import { useMutation } from 'react-query';
 import Footer from './Footer';
 import Login from './Login';
 import Navbar from './Navbar';
@@ -26,16 +22,33 @@ const getCurrentUser = (): ICurrentUser | null => {
 interface ICurrentUserContext {
 	currentUser: ICurrentUser | null;
 	setCurrentUser: React.Dispatch<React.SetStateAction<ICurrentUser | null>>;
+	logout: () => void;
 }
 export const CurrentUserContext = createContext<ICurrentUserContext>(
 	{} as ICurrentUserContext
 );
 
+const logoutReq = async () => {
+	const { data } = await axios.delete('http://localhost:4000/user/logout', {
+		withCredentials: true,
+	});
+	return data;
+};
+
 const Main = () => {
 	const mainBg = useColorModeValue('gray.100', 'gray.800');
+
 	const [currentUser, setCurrentUser] = useState(getCurrentUser);
+	const { mutate } = useMutation(logoutReq);
+	const logout = () => {
+		localStorage.removeItem('currentUser');
+		setCurrentUser(null);
+		mutate();
+	};
 	return (
-		<CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+		<CurrentUserContext.Provider
+			value={{ currentUser, setCurrentUser, logout }}
+		>
 			<Flex
 				w='full'
 				minH='100vh'

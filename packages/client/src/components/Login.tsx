@@ -67,19 +67,23 @@ const Login = () => {
 
 	const formBg = useColorModeValue('white', 'gray.700');
 
-	const { setCurrentUser } = useContext(CurrentUserContext);
+	const { currentUser, setCurrentUser, logout } =
+		useContext(CurrentUserContext);
 
 	useEffect(() => {
-		if (isSuccess && data) setCurrentUser(data);
+		if (isSuccess && data) {
+			setCurrentUser(data);
+			localStorage.setItem('currentUser', JSON.stringify(data));
+		}
 	}, [data, isSuccess, setCurrentUser]);
 
-	if (isSuccess && data) {
-		localStorage.setItem('currentUser', JSON.stringify(data));
+	if (currentUser) {
 		return (
 			<Flex
 				align='center'
 				justify='space-between'
 				direction='column'
+				alignItems='stretch'
 				w='full'
 				h='19.5em'
 				bg={formBg}
@@ -95,7 +99,13 @@ const Login = () => {
 					Login Successful
 				</Heading>
 				<CheckCircleIcon color='green.400' alignSelf='center' boxSize={20} />
-				<Button colorScheme='green' onClick={() => reset()}>
+				<Button
+					colorScheme='green'
+					onClick={() => {
+						reset();
+						logout();
+					}}
+				>
 					Logout
 				</Button>
 			</Flex>

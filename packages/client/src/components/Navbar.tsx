@@ -28,10 +28,10 @@ const Navbar = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
 	const formBg = useColorModeValue('gray.200', 'gray.700');
 
-	const { currentUser } = useContext(CurrentUserContext);
+	const { currentUser, logout } = useContext(CurrentUserContext);
 
 	return (
-		<Box bg={formBg} px={4}>
+		<Box bg={formBg} px={4} mb={6}>
 			<Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
 				<Image
 					borderRadius='full'
@@ -77,7 +77,7 @@ const Navbar = () => {
 									</Center>
 									<br />
 									<MenuDivider />
-									<MenuItem>Logout</MenuItem>
+									<MenuItem onClick={() => logout()}>Logout</MenuItem>
 								</MenuList>
 							</Menu>
 						)}
