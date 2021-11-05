@@ -10,20 +10,12 @@ import {
 	Stack,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-
-interface IFormValues {
-	username: string;
-	password: string;
-}
-
-const addUserReq = async (user: IFormValues) => {
-	const { data } = await axios.post('http://localhost:4000/user/create', user);
-	return data;
-};
+import { IFormValues } from '../common/interfaces';
+import { signUpReq } from '../common/requests';
 
 const SignUp = () => {
 	const {
@@ -47,7 +39,7 @@ const SignUp = () => {
 		AxiosResponse,
 		AxiosError,
 		IFormValues
-	>(addUserReq, {
+	>(signUpReq, {
 		onError,
 	});
 

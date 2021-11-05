@@ -10,29 +10,13 @@ import {
 	Stack,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { CurrentUserContext } from './Main';
-
-interface IFormValues {
-	username: string;
-	password: string;
-}
-
-interface ILoginRes {
-	_id: string;
-	username: string;
-	csrfToken: string;
-}
-
-const loginReq = async (user: IFormValues) => {
-	const { data } = await axios.post('http://localhost:4000/user/login', user, {
-		withCredentials: true,
-	});
-	return data;
-};
+import { CurrentUserContext } from '../common/contexts';
+import { ICurrentUser, IFormValues } from '../common/interfaces';
+import { loginReq } from '../common/requests';
 
 const Login = () => {
 	const {
@@ -54,7 +38,7 @@ const Login = () => {
 	};
 
 	const { data, mutate, isLoading, isSuccess, reset } = useMutation<
-		ILoginRes,
+		ICurrentUser,
 		AxiosError,
 		IFormValues
 	>(loginReq, {
@@ -65,8 +49,6 @@ const Login = () => {
 		mutate(user);
 	};
 
-	const formBg = useColorModeValue('white', 'gray.700');
-
 	const { currentUser, setCurrentUser, logout } =
 		useContext(CurrentUserContext);
 
@@ -76,6 +58,8 @@ const Login = () => {
 			localStorage.setItem('currentUser', JSON.stringify(data));
 		}
 	}, [data, isSuccess, setCurrentUser]);
+
+	const formBg = useColorModeValue('white', 'gray.700');
 
 	if (currentUser) {
 		return (

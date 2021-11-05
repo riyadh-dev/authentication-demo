@@ -17,7 +17,7 @@ import {
 	useColorModeValue,
 } from '@chakra-ui/react';
 import { useContext } from 'react';
-import { CurrentUserContext } from './Main';
+import { CurrentUserContext } from '../common/contexts';
 
 const avatarLink =
 	'https://avatars.dicebear.com/api/avataaars/your-custom-seed.svg?top[]=shortFlat&hatColor[]=gray02&hairColor[]=brown&accessories[]=sunglasses&facialHair[]=beardMedium&clothes[]=hoodie&clothesColor[]=gray01&eyes[]=wink&mouth[]=smile&skin[]=brown';
