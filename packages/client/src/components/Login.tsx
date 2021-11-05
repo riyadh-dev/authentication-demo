@@ -11,9 +11,10 @@ import {
 	useColorModeValue,
 } from '@chakra-ui/react';
 import axios, { AxiosError } from 'axios';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
+import { CurrentUserContext } from './Main';
 
 interface IFormValues {
 	username: string;
@@ -66,8 +67,14 @@ const Login = () => {
 
 	const formBg = useColorModeValue('white', 'gray.700');
 
+	const { setCurrentUser } = useContext(CurrentUserContext);
+
+	useEffect(() => {
+		if (isSuccess && data) setCurrentUser(data);
+	}, [data, isSuccess, setCurrentUser]);
+
 	if (isSuccess && data) {
-		localStorage.setItem('csrfToken', data.csrfToken);
+		localStorage.setItem('currentUser', JSON.stringify(data));
 		return (
 			<Flex
 				align='center'
