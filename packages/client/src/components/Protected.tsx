@@ -6,27 +6,13 @@ import {
 	Text,
 	useColorModeValue,
 } from '@chakra-ui/react';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
-import { CurrentUserContext, ICurrentUser } from './Main';
-
-interface IProtectedRes {
-	error?: string;
-	success?: string;
-}
-
-const protectedReq = (currentUser: ICurrentUser | null) => async () => {
-	if (!currentUser) {
-		throw new Error('not logged in');
-	}
-	const { data } = await axios.post(
-		'http://localhost:4000/user/protected',
-		{},
-		{ withCredentials: true, headers: { 'CSRF-TOKEN': currentUser.csrfToken } }
-	);
-	return data;
-};
+import { CurrentUserContext } from '../common/contexts';
+import { IProtectedRes } from '../common/interfaces';
+import { protectedReq } from '../common/requests';
+import {} from './Main';
 
 const Login = () => {
 	const { currentUser } = useContext(CurrentUserContext);
