@@ -35,7 +35,12 @@ const SignUp = () => {
 
 	const onError = (err: AxiosError) => {
 		const errMsg = err?.response?.data.error;
-		if (errMsg === 'username already used') setError('username', { message: errMsg });
+		if (errMsg === 'username already used')
+			setError('username', { message: errMsg });
+		else {
+			setError('username', { message: err.message });
+			setError('password', { message: err.message });
+		}
 	};
 
 	const { mutate, isLoading, isSuccess, reset } = useMutation<
@@ -65,9 +70,12 @@ const SignUp = () => {
 				rounded='xl'
 				boxShadow='lg'
 				p={6}
-				my={12}
 			>
-				<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: 'xl', md: '2xl' }}>
+				<Heading
+					textAlign='center'
+					lineHeight={1.1}
+					fontSize={{ base: 'xl', md: '2xl' }}
+				>
 					Sign Up Successful
 				</Heading>
 				<CheckCircleIcon color='green.400' alignSelf='center' boxSize={20} />
@@ -88,13 +96,21 @@ const SignUp = () => {
 	};
 
 	return (
-		<Stack w='full' spacing={4} bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
-			<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
+		<Stack w='full' spacing={4} bg={formBg} rounded='xl' boxShadow='lg' p={6}>
+			<Heading
+				textAlign='center'
+				lineHeight={1.1}
+				fontSize={{ base: '2xl', md: '3xl' }}
+			>
 				Sign Up
 			</Heading>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Stack spacing={4}>
-					<FormControl id='username' isInvalid={Boolean(errors.username)} isDisabled={isLoading}>
+					<FormControl
+						id='username'
+						isInvalid={Boolean(errors.username)}
+						isDisabled={isLoading}
+					>
 						<FormLabel>Username</FormLabel>
 						<Input
 							{...register('username', usernameValidationRules)}
@@ -103,7 +119,11 @@ const SignUp = () => {
 						/>
 						<FormErrorMessage>{errors.username?.message}</FormErrorMessage>
 					</FormControl>
-					<FormControl id='password' isInvalid={Boolean(errors.password)} isDisabled={isLoading}>
+					<FormControl
+						id='password'
+						isInvalid={Boolean(errors.password)}
+						isDisabled={isLoading}
+					>
 						<FormLabel>Password</FormLabel>
 						<Input
 							{...register('password', passwordValidationRules)}
