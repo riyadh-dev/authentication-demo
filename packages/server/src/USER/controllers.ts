@@ -72,3 +72,8 @@ export const login = catchAsyncMiddlewareError(loginUnsafe);
 export const protectedSource: IMiddleware = (req, res) => {
 	res.status(200).json({ success: 'request to protected route succeeded' });
 };
+
+export const logout: IMiddleware = (req, res) => {
+	res.clearCookie('token');
+	res.status(200).json({ success: 'logout successful' });
+};
