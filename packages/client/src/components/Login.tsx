@@ -46,6 +46,9 @@ const Login = () => {
 		if (errMsg === 'wrong password or username') {
 			setError('username', { message: errMsg });
 			setError('password', { message: errMsg });
+		} else {
+			setError('username', { message: err.message });
+			setError('password', { message: err.message });
 		}
 	};
 
@@ -76,9 +79,12 @@ const Login = () => {
 				rounded='xl'
 				boxShadow='lg'
 				p={6}
-				my={12}
 			>
-				<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: 'xl', md: '2xl' }}>
+				<Heading
+					textAlign='center'
+					lineHeight={1.1}
+					fontSize={{ base: 'xl', md: '2xl' }}
+				>
 					Login Successful
 				</Heading>
 				<CheckCircleIcon color='green.400' alignSelf='center' boxSize={20} />
@@ -100,13 +106,21 @@ const Login = () => {
 	};
 
 	return (
-		<Stack spacing={4} w='full' bg={formBg} rounded='xl' boxShadow='lg' p={6} my={12}>
-			<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
+		<Stack spacing={4} w='full' bg={formBg} rounded='xl' boxShadow='lg' p={6}>
+			<Heading
+				textAlign='center'
+				lineHeight={1.1}
+				fontSize={{ base: '2xl', md: '3xl' }}
+			>
 				Login
 			</Heading>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Stack spacing={4}>
-					<FormControl id='username' isInvalid={Boolean(errors.username)} isDisabled={isLoading}>
+					<FormControl
+						id='username'
+						isInvalid={Boolean(errors.username)}
+						isDisabled={isLoading}
+					>
 						<FormLabel>Username</FormLabel>
 						<Input
 							{...register('username', usernameValidationRules)}
@@ -115,7 +129,11 @@ const Login = () => {
 						/>
 						<FormErrorMessage>{errors.username?.message}</FormErrorMessage>
 					</FormControl>
-					<FormControl id='password' isInvalid={Boolean(errors.password)} isDisabled={isLoading}>
+					<FormControl
+						id='password'
+						isInvalid={Boolean(errors.password)}
+						isDisabled={isLoading}
+					>
 						<FormLabel>Password</FormLabel>
 						<Input
 							{...register('password', passwordValidationRules)}

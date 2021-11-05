@@ -1,5 +1,11 @@
-import { CheckCircleIcon, WarningIcon } from '@chakra-ui/icons';
-import { Button, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import { CheckCircleIcon, WarningIcon, WarningTwoIcon } from '@chakra-ui/icons';
+import {
+	Button,
+	Flex,
+	Heading,
+	Text,
+	useColorModeValue,
+} from '@chakra-ui/react';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import React from 'react';
 import { useQuery } from 'react-query';
@@ -23,11 +29,12 @@ const protectedReq = async () => {
 };
 
 const Login = () => {
-	const { data, isLoading, isSuccess, isError, refetch, error, remove } = useQuery<
-		AxiosResponse,
-		AxiosError,
-		IProtectedRes
-	>('protected', protectedReq, { enabled: false });
+	const { data, isLoading, isSuccess, isError, refetch, error, remove } =
+		useQuery<AxiosResponse, AxiosError, IProtectedRes>(
+			'protected',
+			protectedReq,
+			{ enabled: false }
+		);
 
 	const onClick: React.MouseEventHandler<HTMLButtonElement> = () => {
 		remove();
@@ -44,22 +51,38 @@ const Login = () => {
 			alignItems='stretch'
 			direction='column'
 			w='full'
-			h='19.5em'
+			h='19.57em'
 			bg={formBg}
 			rounded='xl'
 			boxShadow='lg'
 			p={6}
-			my={12}
 		>
-			<Heading textAlign='center' lineHeight={1.1} fontSize={{ base: 'xl', md: '2xl' }}>
+			<Heading
+				textAlign='center'
+				lineHeight={1.1}
+				fontSize={{ base: 'xl', md: '2xl' }}
+			>
 				Protected
 			</Heading>
-			{isError && <WarningIcon color='red.400' alignSelf='center' boxSize={20} />}
-			{isSuccess && <CheckCircleIcon color='green.400' alignSelf='center' boxSize={20} />}
-			<Text textAlign='center' lineHeight={1.1} fontSize={{ base: 'xl', md: '2xl' }}>
-				{errMsg}
-				{data?.success}
-			</Text>
+			{isError && (
+				<WarningIcon color='red.400' alignSelf='center' boxSize={20} />
+			)}
+			{isSuccess && (
+				<CheckCircleIcon color='green.400' alignSelf='center' boxSize={20} />
+			)}
+			{!isError && !isSuccess && (
+				<WarningTwoIcon color='yellow.300' alignSelf='center' boxSize={20} />
+			)}
+			{(isError || isSuccess) && (
+				<Text
+					textAlign='center'
+					lineHeight={1.1}
+					fontSize={{ base: 'xl', md: '2xl' }}
+				>
+					{errMsg}
+					{data?.success}
+				</Text>
+			)}
 			<Button isLoading={isLoading} colorScheme='green' onClick={onClick}>
 				Request
 			</Button>
