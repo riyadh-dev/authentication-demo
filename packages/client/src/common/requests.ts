@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ICurrentUser, IFormValues } from './interfaces';
 
-const server_domain = 'http://localhost:4000';
+const server_domain = process.env.REACT_APP_SERVER_ORIGIN;
 
 export const loginReq = async (user: IFormValues) => {
 	const { data } = await axios.post(`${server_domain}/user/login`, user, {
