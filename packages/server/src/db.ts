@@ -1,6 +1,7 @@
 import { connect } from 'mongoose';
+import { MONGODB_URI } from './util/secrets';
 
 export const dbBootstrap = async () => {
-	await connect('mongodb://localhost:27017/auth-demo');
+	await connect(MONGODB_URI);
 	console.log('Connected to DB');
 };

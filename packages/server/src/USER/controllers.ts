@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { isProd, JWT_SECRET } from '../util/secrets';
 import {
 	IAsyncMiddleware,
 	IErrorHandler,
@@ -53,11 +54,11 @@ const loginUnsafe: IAsyncMiddleware = async (req, res) => {
 		return;
 	}
 
-	const jwtToken = jwt.sign(payload, 'secret');
+	const jwtToken = jwt.sign(payload, JWT_SECRET);
 	res.cookie('token', jwtToken, {
 		httpOnly: true,
 		signed: true,
-		//secure: true,
+		secure: isProd,
 	});
 
 	const csrfToken = req.csrfToken();

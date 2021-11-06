@@ -4,15 +4,16 @@ import express from 'express';
 import helmet from 'helmet';
 import { handlePassedError } from './common/middlewares';
 import userRouter from './USER/router';
+import { CLIENT_ORIGIN, COOKIE_SECRET } from './util/secrets';
 
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser('cookie secret'));
+app.use(cookieParser(COOKIE_SECRET));
 app.use(helmet());
 app.use(
 	cors({
-		origin: 'http://localhost:5000',
+		origin: CLIENT_ORIGIN,
 		credentials: true,
 	})
 );

@@ -2,6 +2,7 @@ import csurf from 'csurf';
 import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
+import { isProd, JWT_SECRET } from '../util/secrets';
 import {
 	IAsyncMiddleware,
 	IErrorHandler,
@@ -45,7 +46,7 @@ export const csrfLogin = csurf({
 	cookie: {
 		httpOnly: true,
 		signed: true,
-		//secure: true,
+		secure: isProd,
 	},
 });
 
@@ -53,13 +54,13 @@ export const csrfProtection = csurf({
 	cookie: {
 		httpOnly: true,
 		signed: true,
-		//secure: true,
+		secure: isProd,
 	},
 });
 
 export const authenticate: IMiddleware = (req, res, next) => {
 	try {
-		res.locals.currentUser = jwt.verify(req.signedCookies.token, 'secret');
+		res.locals.currentUser = jwt.verify(req.signedCookies.token, JWT_SECRET);
 		next();
 	} catch (_error) {
 		res.clearCookie('token');

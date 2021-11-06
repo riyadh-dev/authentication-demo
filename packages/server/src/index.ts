@@ -1,14 +1,14 @@
 import app from './app';
-import { catchAsyncErrors } from './common/helpers';
 import { dbBootstrap } from './db';
-const port = 4000;
+import { catchAsyncErrors } from './util/helpers';
+import { SERVER_PORT } from './util/secrets';
 
 const mainUnsafe = async () => {
 	await dbBootstrap();
-	
-	app.listen(port, () => {
-		console.log(`Example app listening at http://localhost:${port}`);
-	});	
+
+	app.listen(SERVER_PORT, () => {
+		console.log(`Example app listening at http://localhost:${SERVER_PORT}`);
+	});
 };
 
 const main = catchAsyncErrors(mainUnsafe);
