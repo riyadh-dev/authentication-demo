@@ -7,7 +7,7 @@ const mainUnsafe = async () => {
 	await dbBootstrap();
 
 	app.listen(SERVER_PORT, () => {
-		console.log(`Example app listening at http://localhost:${SERVER_PORT}`);
+		console.log(`Server 🚀 At PORT: ${SERVER_PORT}`);
 	});
 };
 
