@@ -47,6 +47,7 @@ export const csrfLogin = csurf({
 		httpOnly: true,
 		signed: true,
 		secure: isProd,
+		sameSite: 'strict',
 	},
 });
 
@@ -55,6 +56,7 @@ export const csrfProtection = csurf({
 		httpOnly: true,
 		signed: true,
 		secure: isProd,
+		sameSite: 'strict',
 	},
 });
 

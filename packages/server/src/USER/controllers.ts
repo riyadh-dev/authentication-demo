@@ -59,6 +59,7 @@ const loginUnsafe: IAsyncMiddleware = async (req, res) => {
 		httpOnly: true,
 		signed: true,
 		secure: isProd,
+		sameSite: 'strict',
 	});
 
 	const csrfToken = req.csrfToken();
