@@ -4,3 +4,4 @@ build
 dist
 *.log
 .env
+.env.production.local
