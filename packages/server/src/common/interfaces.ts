@@ -4,8 +4,9 @@ export interface IErrorWithCode extends Error {
 	code?: string | number;
 }
 
-export const isErrorWithCode = (error: IErrorWithCode): error is IErrorWithCode =>
-	error.code !== undefined;
+export const isErrorWithCode = (
+	error: IErrorWithCode
+): error is IErrorWithCode => error.code !== undefined;
 
 export interface IErrorHandler {
 	(error: Error, res: Response): void;
