@@ -28,7 +28,8 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"serve": "serve -s build"
+		"serve": "serve -s build",
+		"format-code": "prettier . --write --ignore-unknown"
 	},
 	"browserslist": {
 		"production": [
@@ -44,6 +45,7 @@
 	},
 	"devDependencies": {
 		"@types/axios": "^0.14.0",
+		"prettier": "^2.4.1",
 		"serve": "^12.0.1"
 	}
 }

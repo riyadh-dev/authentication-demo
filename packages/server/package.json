@@ -37,6 +37,7 @@
 		"eslint": "^8.0.1",
 		"jest": "^27.3.1",
 		"nodemon": "^2.0.14",
+		"prettier": "^2.4.1",
 		"typescript": "^4.4.4"
 	},
 	"scripts": {
@@ -47,6 +48,7 @@
 		"start-watch": "concurrently \"nodemon --watch dist dist/index.js\" \"yarn build-watch\" -i --names \"serve,build\"",
 		"start-watch-debug": "concurrently \"nodemon --watch dist --inspect dist/index.js\" \"yarn build-watch\" -i --names \"serve,build\"",
 		"test": "jest",
-		"test-watch": "jest --watchAll"
+		"test-watch": "jest --watchAll",
+		"format-code": "prettier . --write --ignore-unknown"
 	}
 }
