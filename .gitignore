@@ -3,4 +3,7 @@ coverage
 build
 dist
 *.log
+
 .env
+.env.production.local
+.env.development.local
