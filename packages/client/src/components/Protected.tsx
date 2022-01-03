@@ -14,7 +14,7 @@ import { IProtectedRes } from '../common/interfaces';
 import { protectedReq } from '../common/requests';
 import {} from './Main';
 
-const Login = () => {
+const Protected = () => {
 	const { currentUser } = useContext(CurrentUserContext);
 
 	const { data, isLoading, isSuccess, isError, refetch, error, remove } =
@@ -78,4 +78,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default Protected;

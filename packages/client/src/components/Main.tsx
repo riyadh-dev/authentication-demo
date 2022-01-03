@@ -1,4 +1,4 @@
-import { Flex, useColorModeValue, Wrap, WrapItem } from '@chakra-ui/react';
+import { Flex, Stack, useColorModeValue } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { CurrentUserContext } from '../common/contexts';
 import { getCurrentUser } from '../common/helpers';
@@ -23,7 +23,7 @@ const Main = () => {
 			value={{ currentUser, setCurrentUser, logout }}
 		>
 			<Flex
-				w='full'
+				minW='100vw'
 				minH='100vh'
 				align='center'
 				justify='space-between'
@@ -32,17 +32,16 @@ const Main = () => {
 				direction='column'
 			>
 				<Navbar />
-				<Wrap spacing={6} justify='center'>
-					<WrapItem minW={['22em', 'md']}>
-						<SignUp />
-					</WrapItem>
-					<WrapItem minW={['22em', 'md']}>
-						<Login />
-					</WrapItem>
-					<WrapItem minW={['22em', 'md']}>
-						<Protected />
-					</WrapItem>
-				</Wrap>
+				<Stack
+					justifyContent='center'
+					direction={['column', 'column', 'row']}
+					spacing={6}
+					mx={[3, 3, 3, '50px']}
+				>
+					<SignUp />
+					<Login />
+					<Protected />
+				</Stack>
 				<Footer />
 			</Flex>
 		</CurrentUserContext.Provider>
