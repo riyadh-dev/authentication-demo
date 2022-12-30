@@ -1,5 +1,4 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Main from './components/Main';
 

@@ -11,7 +11,6 @@ import {
 	useColorModeValue,
 } from '@chakra-ui/react';
 import { AxiosError, AxiosResponse } from 'axios';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { IFormValues } from '../common/interfaces';
@@ -25,7 +24,7 @@ const SignUp = () => {
 		setError,
 	} = useForm<IFormValues>();
 
-	const onError = (err: AxiosError) => {
+	const onError = (err: AxiosError<{ error: string }>) => {
 		const errMsg = err?.response?.data.error;
 		if (errMsg === 'username already used')
 			setError('username', { message: errMsg });
@@ -37,7 +36,7 @@ const SignUp = () => {
 
 	const { mutate, isLoading, isSuccess, reset } = useMutation<
 		AxiosResponse,
-		AxiosError,
+		AxiosError<{ error: string }>,
 		IFormValues
 	>(signUpReq, {
 		onError,

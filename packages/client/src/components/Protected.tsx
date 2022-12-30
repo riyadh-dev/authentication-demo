@@ -18,7 +18,7 @@ const Protected = () => {
 	const { currentUser } = useContext(CurrentUserContext);
 
 	const { data, isLoading, isSuccess, isError, refetch, error, remove } =
-		useQuery<AxiosResponse, AxiosError, IProtectedRes>(
+		useQuery<AxiosResponse, AxiosError<{ error: string }>, IProtectedRes>(
 			'protected',
 			protectedReq(currentUser),
 			{ enabled: false }

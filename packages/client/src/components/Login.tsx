@@ -11,7 +11,7 @@ import {
 	useColorModeValue,
 } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { CurrentUserContext } from '../common/contexts';
@@ -26,7 +26,7 @@ const Login = () => {
 		setError,
 	} = useForm<IFormValues>();
 
-	const onError = (err: AxiosError) => {
+	const onError = (err: AxiosError<{ error: string }>) => {
 		const errMsg = err?.response?.data.error;
 		if (errMsg === 'wrong password or username') {
 			setError('username', { message: errMsg });
@@ -39,7 +39,7 @@ const Login = () => {
 
 	const { data, mutate, isLoading, isSuccess, reset } = useMutation<
 		ICurrentUser,
-		AxiosError,
+		AxiosError<{ error: string }>,
 		IFormValues
 	>(loginReq, {
 		onError,
