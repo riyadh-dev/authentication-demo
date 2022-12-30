@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { isProd, JWT_SECRET } from '../util/secrets';
 import {
 	IAsyncMiddleware,
 	IErrorHandler,
@@ -8,6 +7,7 @@ import {
 	isErrorWithCode,
 } from '../common/interfaces';
 import { catchAsyncMiddlewareError } from '../common/middlewares';
+import { IS_PROD, JWT_SECRET } from '../util/secrets';
 import { IUser } from './interfaces';
 import { userModel } from './model';
 
@@ -58,7 +58,7 @@ const loginUnsafe: IAsyncMiddleware = async (req, res) => {
 	res.cookie('token', jwtToken, {
 		httpOnly: true,
 		signed: true,
-		secure: isProd,
+		secure: IS_PROD,
 		sameSite: 'strict',
 	});
 

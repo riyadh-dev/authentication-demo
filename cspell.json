@@ -6,6 +6,8 @@
 		"msedge",
 		"browserslist",
 		"dbpath",
-		"mongod"
+		"mongod",
+		"middlewares",
+		"EBADCSRFTOKEN"
 	]
 }
